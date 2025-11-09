@@ -1,0 +1,178 @@
+﻿@model UnitTest.Models.User.UserListAndSearchModel
+
+<style>
+
+        thead th {
+            position: sticky;
+            top: 0;
+            background-color: #f9f9f9; /* رنگ پس‌زمینه هدر */
+            z-index: 1; /* اطمینان از نمایش هدر بالای سایر ردیف‌ها */
+        }
+
+    th, td {
+        text-align: center; /* وسط‌چین افقی */
+        vertical-align: middle; /* وسط‌چین عمودی */
+    }
+
+    td {
+        font-weight: normal !important; /* متن معمولی برای داده‌ها */
+       /*  background-color: #fff; */ /* رنگ پس‌زمینه داده‌ها */
+    }
+
+    .table td {
+        font-weight: normal !important; /* متن معمولی برای داده‌ها */
+        background-color: #fff !important; /* رنگ پس‌زمینه داده‌ها */
+    }
+</style>
+@{
+    var UserList = Model.UserListItems;
+    DomainModel.DTO.UserModel.UserSearchModel sm = Model.sm;
+
+}
+
+@{
+    ViewData["Title"] = "لیست  کاربران ";
+    int counter = 1;
+}
+
+@if (Model == null || UserList.Count == 0)
+{
+    <h3 class="text-center text-danger ">
+        هیج کاربری ای وجود ندارد
+    </h3>
+}
+else
+{
+    <table class="table table-bordered table-hover table-striped table-sm styletable">
+        <thead>
+            <tr class="text-center">
+                <th>ردیف</th>
+                <th>نام </th>
+                <th>وضعیت</th>
+                <th>ویرایش</th>
+                <th>غیرفعال</th>
+                <th>فعال</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in UserList)
+            {
+                <tr id="tr_@item.Id" class="text-center">
+                    <td>@counter</td>
+                    <td>@item.Name</td>
+                    
+                    @if (item.IsDeleted == true)
+                    {
+                        <td>غیرفعال</td>
+                    }
+                    else
+                    {
+                        <td>فعال</td>
+                    }
+
+
+
+                    <td>
+                        <span class="btn btn-primary btn-sm btnUpdateUser" data-UpdateUser="@item.Id">ویرایش</span>
+
+                    </td>
+                    <td>
+                        <span class="btn btn-danger btn-sm btnDeActiveUser" data-deactiveUser="@item.Id" data-Name="@item.Name">غیرفعال</span>
+                    </td>
+                    <td>
+                        <span class="btn btn-danger btn-sm btnActiveUser" data-activeUser="@item.Id" data-Name="@item.Name">فعال</span>
+                    </td>
+
+                </tr>
+                counter++;
+            }
+            <tr>
+                <td colspan="13" class="text-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+
+
+                            @if ((int)sm.PageIndex > 1)
+                            {
+                                @* Previous *@
+                                <li class="page-item">
+                                    @Html.ActionLink("<<", "Index", "UserManage", new DomainModel.DTO.UserModel.UserSearchModel
+                       {
+                           PageCount = sm.PageCount,
+                           RecordCount = sm.RecordCount,
+                           PageSize = 10,
+                           Name = sm.Name,
+                           PageIndex = sm.PageIndex - 1,
+                       }, new { @class = "page-link" })
+                                </li>
+                            }
+
+
+
+
+                            @for (int i = 0; i < sm.PageCount; i++)
+                            {
+
+                                if (sm.PageIndex != i)
+                                {
+                                    <li class="page-item">
+                                        @Html.ActionLink((i + 1).ToString(), "Index", "UserManage", new DomainModel.DTO.UserModel.UserSearchModel
+                       {
+                           PageCount = sm.PageCount,
+                           RecordCount = sm.RecordCount,
+                           PageSize = 10,
+                           Name = sm.Name,
+                           PageIndex = i
+                            ,
+                       }, new { @class = "page-link" })
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="page-item active">
+                                        @Html.ActionLink((i + 1).ToString(), "Index", "UserManage", new DomainModel.DTO.UserModel.UserSearchModel
+                       {
+                           PageCount = sm.PageCount,
+                           RecordCount = sm.RecordCount,
+                           PageSize = 10,
+                          
+                           Name = sm.Name,
+                           PageIndex = i,
+                       }, new { @class = "page-link" })
+                                    </li>
+                                }
+
+
+                            }
+
+
+
+
+                            @if ((int)sm.PageIndex <= (int)sm.PageCount - 1)
+                            {
+                                @* Next *@
+                                <li class="page-item">
+                                    @Html.ActionLink(">>", "Index", "UserManage", new DomainModel.DTO.UserModel.UserSearchModel
+                       {
+                           PageCount = sm.PageCount,
+                           RecordCount = sm.RecordCount,
+                           PageSize = 10,
+                           Name = sm.Name,
+                           PageIndex = sm.PageIndex + 1
+                            ,
+                       }, new { @class = "page-link" })
+                                </li>
+
+                            }
+                        </ul>
+                    </nav>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+
+
+
+

@@ -1,0 +1,65 @@
+﻿@model DomainModel.DTO.UserModel.UserSearchModel
+
+
+@{
+
+    ViewData["Title"] = "لیست  کاربران ها";
+
+}
+
+
+<div class="page-header" style="background-color:#ffffff">
+    <div class="breadcrumb" style="background-color:#ffffff">
+        <ul class="breadcrumb" style="background-color:#ffffff">
+            <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index"><i class="icon-home2 position-left"></i>خانه</a></li>
+            <li class="breadcrumb-item active" aria-current="page">مدیریت کاربران </li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="container stylecontainer">
+    <form asp-controller="UserManage" asp-action="Index" id="frmSearchUser">
+
+
+        <div class="row stylerow" id="Row1FrmSearchUser">
+          
+
+
+            <div class="col-md-3">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <div class="form-group2">
+                        <label for="Name" class="control-label">نام :</label>
+                        <input asp-for="Name" class="form-control" />
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+            
+
+        </div>
+
+
+        <div class="row stylerow">
+            <div class="col-md-12 d-flex justify-content-center">
+                <div class="form-group">
+                    <input type="submit" value="جستجو" class="btn btn-success" id="BtnJst1" />
+                    <a asp-action="Index" asp-controller="UserManage" class="btn btn-primary">حذف فیلتر</a>
+                    <a href="#" class="btn btn-success" id="btnAddUser" data-action='@Url.Action("Add", "UserManage")' data-container="dvContent" data-modal-id="myModal">ثبت  کاربر</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+

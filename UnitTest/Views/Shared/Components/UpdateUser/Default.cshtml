@@ -1,0 +1,60 @@
+﻿@model DomainModel.DTO.UserModel.UserGetModel
+
+
+@{
+    ViewData["Title"] = "ویرایش کاربر";
+
+    Layout = null;
+
+}
+
+<h4>ویرایش کاربر </h4>
+
+
+<div class="container stylecontainerRegister">
+    <form asp-controller="UserManage" asp-action="Update" method="post" id="frmupdateUser">
+        <div class="row" id="Row1FrmUpdateUser" style="margin:0px;">
+            <div class="col-md-6">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input asp-for="Id" type="hidden" />
+
+                <div class="form-group">
+                    <div class="form-group2">
+                        <label for="Name" class="control-label" style="min-width:fit-content;">نام :</label>
+                        <input asp-for="Name" class="form-control" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        <div class="row" id="Row2FrmUpdateUser">
+            <div class="col-md-6 d-flex justify-content-center">
+                <div class="form-group">
+                    <span class="btn btn-success  btnUpdateinternalUser" id="btnUpdateinternalUser" data-updateinternalUser="Id"> ویرایش</span>
+                    <span class="btn btn-primary  btn-Cancel" id="btnCancelEditUser">انصراف</span>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
+
+
+
+

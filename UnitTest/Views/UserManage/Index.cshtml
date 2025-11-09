@@ -1,0 +1,366 @@
+﻿@model DomainModel.DTO.UserModel.UserSearchModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    tr:hover td {
+        background-color: #dcd6d6;
+    }
+</style>
+
+
+
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <!-- START - MetaTags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="fa">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="~/lib/sweetalert/sweetalert2.min.css" rel="stylesheet">
+    <link href="~/lib/sweetalert/sweetalert2.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/select2.min.css" />
+
+
+</head>
+
+
+
+
+<body class="navbar-top" style="background-color:#ffffff">
+
+   
+    <!-- END - Main Navibar -->
+    <!-- START - Main Content -->
+    <div class="page-container" style="background-color:#ffffff">
+
+        <!-- START - Page Content -->
+        <div class="page-content" style="background-color:#ffffff">
+            <!-- START - Main Content -->
+            <div class="content-wrapper" style="background-color:#ffffff">
+
+               
+                <!-- Content area -->
+                <div class="content" style="background-color:#ffffff">
+
+
+
+
+
+
+                    <div id="dvSearchBox">
+                        @await Component.InvokeAsync("UserSearchBox", this.Model)
+                    </div>
+
+                    <div id="dvGrid">
+                        @await Component.InvokeAsync("UserList", this.Model)
+                    </div>
+
+
+
+
+
+
+                    <!--start modal1-->
+
+
+                    <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+                                    <span id="closemodal" type="submit" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></span>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="dvContent"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--End Modal1-->
+
+
+
+
+
+
+                </div>
+                <!-- Footer -->
+
+                <div class="breadcrumb-line" style="background-color:#ffffff; border-top:1px solid gray; text-align:center; bottom:0px !important; position:fixed; width:100%;">
+                    <div class="col-md-offset-2 col-md-6">
+                        <span style="color: black;"> - تمامی حقوق متعلق محفوظ می باشد </span>
+                    </div>
+                </div>
+                <!-- /footer -->
+
+            </div>
+            <!-- END - Main Content -->
+
+        </div>
+        <!-- END - Page Content -->
+
+    </div>
+    <!-- END - Main Content -->
+    <!--Top Loading-->
+
+
+
+
+   
+    <!-- END - theme JS files -->
+    <script src="~/lib/jquery/dist/jquery-3.7.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+ @*    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+ *@
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/sweetalert/sweetalert2.min.js"></script>
+    <script src="~/lib/sweetalert/sweetalert2.js"></script>
+    <script src="~/js/select2.min.js"></script>
+
+
+
+
+
+
+
+
+
+    
+
+
+    <script>
+
+
+        function BindGrid() {
+            debugger;
+            var SendingUrl = '@Url.Action("ListAction", "UserManage")';
+            var SendingData = $("#frmSearchUser").serialize();
+            $.get(SendingUrl, SendingData, function (grd) {
+                $("#dvGrid").html(grd);
+            });
+        }
+
+
+
+
+        function RefreshSearchBox() {
+            var SendingUrl = '@Url.Action("SearchBoxAction", "UserManage")';
+            var SendingData = $("#frmSearchUser").serialize();//ino gozashtam k vaghti k button add ro zadam search ghabli napare
+            $.get(SendingUrl, SendingData, function (frmsearch) {
+                $("#dvSearchBox").html(frmsearch);
+            });
+        }
+
+        function SuccessMessage(SuccessTxt) {
+            swal({
+                title: "اعلان",
+                text: SuccessTxt,
+                type: "success",
+                button: "باشه"
+            });
+        }
+
+        function ErrorMessage(ErrorTxt) {
+            swal({
+                title: "خطا",
+                text: ErrorTxt,
+                type: "error",
+                button: "باشه"
+            });
+        }
+
+
+        $(document).on("click", ".btnDeActiveUser", function () {
+            debugger;
+            var id = $(this).attr("data-deactiveUser");
+            var Name = $(this).attr("data-Name");
+            swal({
+                title: 'آیا مطمئنید؟',
+                // text: "آیا واقعاً می خواهید این مورد را حذف کنید؟",
+                html: `آیا واقعاً می‌خواهید  کاربر : <span style="color: red; font-size: 20px; font-weight: bold;">${Name}</span>
+
+                                را  را غیرفعال کنید؟`, // استفاده از HTML
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'بله، غیرفعال شود',
+                cancelButtonText: 'خیر، لغو شود'
+            }).then((result) => {
+                console.log("Result: ", result);  // بررسی نتیجه SweetAlert
+                if (result === true) {  // استفاده مستقیم از result به جای result.isConfirmed
+
+                    var SendingUrl = '@Url.Action("DeActiveUser", "UserManage")';
+                    var SendingData = "id=" + id;
+                    $.post(SendingUrl, SendingData, function (op) {
+                        if (op.success.toString() === "true") {
+                            var rowID = "#tr_" + id;
+                            //$(rowID).slideUp(500);
+                            SuccessMessage(op.message);
+                            BindGrid();
+                        }
+                        else {
+                            ErrorMessage(op.message);
+                        }
+                    });
+                }
+            });
+        });
+
+
+        $(document).on("click", ".btnActiveUser", function () {
+            debugger;
+            var id = $(this).attr("data-activeUser");
+            var Name = $(this).attr("data-Name");
+            swal({
+                title: 'آیا مطمئنید؟',
+                // text: "آیا واقعاً می خواهید این مورد را حذف کنید؟",
+                html: `آیا واقعاً می‌خواهید  کاربر : <span style="color: red; font-size: 20px; font-weight: bold;">${Name}</span>
+
+                                را  را فعال کنید؟`, // استفاده از HTML
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'بله، فعال شود',
+                cancelButtonText: 'خیر، لغو شود'
+            }).then((result) => {
+                console.log("Result: ", result);  // بررسی نتیجه SweetAlert
+                if (result === true) {  // استفاده مستقیم از result به جای result.isConfirmed
+
+                    var SendingUrl = '@Url.Action("ActiveUser", "UserManage")';
+                    var SendingData = "id=" + id;
+                    $.post(SendingUrl, SendingData, function (op) {
+                        if (op.success.toString() === "true") {
+                            var rowID = "#tr_" + id;
+                            //$(rowID).slideUp(500);
+                            SuccessMessage(op.message);
+                            BindGrid();
+                        }
+                        else {
+                            ErrorMessage(op.message);
+                        }
+                    });
+                }
+            });
+        });
+
+
+        $(document).on("click", "#btnAddUser", function () {
+            var url = $(this).attr("data-action");
+            var container = $(this).attr("data-container");
+            var modal = $(this).attr("data-modal-id");
+            $.get(url, null, function (rd) {
+                $("#" + container).html(rd);
+                $("#" + modal).modal('show');
+            });
+        });
+
+
+
+        $(document).on("click", "#btnAddinternalUser", function () {
+            debugger;
+            var modal = $(this).attr("data-modal-id");
+            var action = $(this).attr("data-action");
+            var method = $(this).attr("data-method");
+            var formid = "#" + $(this).attr("data-form-id");
+            if (method === "post") {
+                var SendingData = $(formid).serialize();
+                $.post(action, SendingData, function (op) {
+
+                    if (op.success.toString() === "true") {
+                        $("#myModal").modal('hide');
+                        SuccessMessage(op.message);
+
+                        //alert(op.message);
+                        BindGrid();
+                        RefreshSearchBox();
+                    }
+                    else {
+                        //alert(op.message);
+                         $("#myModal").modal('hide');
+                        ErrorMessage(op.message);
+
+                    }
+                });
+            }
+        });
+
+
+
+
+
+        $(document).on("click", ".btnUpdateUser", function () {
+            var id = $(this).attr("data-UpdateUser");
+            let sendingUrl = '@Url.Action("Update", "UserManage")';
+            let sendingData = "UserID=" + id;
+            $.get(sendingUrl, sendingData, function (frm) {
+                $("#dvContent").html(frm);
+                $("#myModal").modal('show');
+            });
+        });
+
+        $(document).on("click", "#btnUpdateinternalUser", function () {
+            var id = $(this).attr("data-updateinternalUser");
+            let sendingUrl = '@Url.Action("Update", "UserManage")';
+            let sendingData = $("#frmupdateUser").serialize();
+            $.post(sendingUrl, sendingData, function (op) {
+                if (op.success.toString() === "true") {
+                    $("#myModal").modal('hide');
+                    SuccessMessage(op.message);
+                    BindGrid();
+                    RefreshSearchBox();
+                }
+                else {
+                      $("#myModal").modal('hide');
+                    ErrorMessage(op.message);
+                }
+            });
+
+        });
+
+        $(document).on("click", "#btnCancelEditUser", function () {
+            $("#myModal").modal('hide');
+        });
+
+
+
+        
+
+
+
+
+
+        $(document).on("keyup", "#Name", function () {
+            BindGrid();
+        });
+        
+
+     
+
+        $(document).on("click", "#btnCancelAddUser", function () {
+            $("#myModal").modal('hide');
+        });
+
+        $(document).on("click", "#closemodal", function () {
+            $("#myModal").modal('hide');
+        });
+
+
+
+
+       
+    </script>
+
+
+
+</body>
+
+</html>

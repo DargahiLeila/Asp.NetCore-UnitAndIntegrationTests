@@ -1,0 +1,67 @@
+﻿@model UnitTest.ViewModel.User.UserAddEditViewModel
+
+@{
+    ViewData["Title"] = "ثبت کاربر";
+    Layout = null;
+
+}
+
+
+
+
+<h4>ثبت  کاربر جدید</h4>
+
+
+<div class="container stylecontainerRegister">
+    <form asp-action="AddUder" id="frmAddNewUser">
+
+        <div class="row" id="Row1FrmAddNewUser">
+          
+            <div class="col-md-6">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+                <div class="form-group">
+                    <div class="form-group2">
+                        <label for="Name" class="control-label fit">نام :</label>
+                        <input asp-for="Name" class="form-control" />
+                    </div>
+                </div>
+
+            </div>
+            
+
+
+
+        </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+        <div class="row" id="Row2FrmAddNewUser">
+            <div class="col-md-6 d-flex justify-content-center">
+                <div class="form-group">
+                    <span class="btn btn-success" id="btnAddinternalUser" data-action='@Url.Action("Add", "UserManage")' data-method="post" data-form-id="frmAddNewUser">ثبت</span>
+                    <span class="btn btn-primary  btn-Cancel" id="btnCancelAddUser"> انصراف </span>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
+
+
+
+
+
