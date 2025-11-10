@@ -32,8 +32,8 @@ This project demonstrates a manual implementation of the **CQRS (Command Query R
 |-------|--------------|------------|
 | DAL   | Integration  | EF Core InMemory |
 | BLL   | Unit + Integration | xUnit, Moq |
-| UI    | Minimal UI validation | xUnit |
-| Domain | Unit | Pure logic tests |
+| UI    | Unit + Integration| xUnit |
+| Domain | No Tested | - |
 
 ### ✅ Covered Scenarios
 
@@ -42,7 +42,7 @@ This project demonstrates a manual implementation of the **CQRS (Command Query R
 - Get all users
 - Search users by name
 - Validate duplicate names
-- Email sending logic (mocked)
+
 
 ---
 
