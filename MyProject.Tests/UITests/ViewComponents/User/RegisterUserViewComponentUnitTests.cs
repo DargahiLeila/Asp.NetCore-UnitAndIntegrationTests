@@ -13,7 +13,7 @@ using UnitTest.VeiwComponents.User;
 
 namespace MyProject.Tests.UITests.ViewComponents.User
 {
-    public class RegisterUserViewComponentTests
+    public class RegisterUserViewComponentUnitTests
     {
         [Fact]
         public void Invoke_ShouldReturnDefaultView()

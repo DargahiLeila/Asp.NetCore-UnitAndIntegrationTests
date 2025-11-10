@@ -12,7 +12,7 @@ using UnitTest.VeiwComponents.User;
 
 namespace MyProject.Tests.UITests.ViewComponents.User
 {
-    public class UpdateUserViewComponentTests
+    public class UpdateUserViewComponentUnitTests
     {
         [Fact]
         public async Task InvokeAsync_ShouldReturnViewWithUserModel()

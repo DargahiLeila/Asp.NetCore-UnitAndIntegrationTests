@@ -12,7 +12,7 @@ using UnitTest.VeiwComponents.User;
 
 namespace MyProject.Tests.UITests.ViewComponents.User
 {
-    public class UserSearchBoxViewComponentTests
+    public class UserSearchBoxViewComponentUnitTests
     {
         [Fact]
         public void Invoke_WhenCalled_ShouldReturnViewWithSearchModel()
