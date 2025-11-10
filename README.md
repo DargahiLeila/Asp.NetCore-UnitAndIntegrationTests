@@ -51,3 +51,4 @@ This project demonstrates a manual implementation of the **CQRS (Command Query R
 1. Clone the repository:
    ```bash
    git clone https://github.com/DargahiLeila/Asp.NetCore-UnitAndIntegrationTests.git
+  2.Open the solution file (.sln) in Visual Studio 2022 or later.
