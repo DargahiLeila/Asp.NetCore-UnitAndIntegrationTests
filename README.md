@@ -89,7 +89,6 @@ Unit tests use Moq to simulate dependencies
 All tests are written with xUnit and FluentAssertions
 
 ## 📂 Repository Structure
-
 UnitTest/
 ├── Domain/              ← Domain models (currently not tested)
 ├── DAL/                 ← Data Access Layer
