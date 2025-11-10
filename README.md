@@ -32,7 +32,7 @@ This project demonstrates a manual implementation of the **CQRS (Command Query R
 |-------|--------------|------------|
 | DAL   | Integration  | EF Core InMemory |
 | BLL   | Unit + Integration | xUnit, Moq |
-| UI    | Unit + Integration| xUnit |
+| UI    | Unit + Integration| xUnit, Moq |
 | Domain | No Tested | - |
 
 ### ✅ Covered Scenarios
