@@ -90,6 +90,15 @@ All tests are written with xUnit and FluentAssertions
 
 ## 📂 Repository Structure
 
-UnitTest/ ├── Domain/ ← Domain models (currently not tested) ├── DAL/ ← Data Access Layer ├── BLL/ ← Business Logic Layer ├── UI/ ← User Interface ├── MyProject.Tests/ ← Test project │ ├── ApplicationTests/ ← Tests for business/application services │ ├── DataAccessTests/ ← Tests for repositories and data access │ └── UITests/ ← Tests for UI layer (controllers, views, interactions)
-
+```
+UnitTest/
+├── Domain/              ← Domain models (currently not tested)
+├── DAL/                 ← Data Access Layer
+├── BLL/                 ← Business Logic Layer
+├── UI/                  ← User Interface
+├── MyProject.Tests/     ← Test project
+│   ├── ApplicationTests/    ← Tests for business/application services
+│   ├── DataAccessTests/     ← Tests for repositories and data access
+│   └── UITests/             ← Tests for UI layer (controllers, views, interactions)
+```
 
