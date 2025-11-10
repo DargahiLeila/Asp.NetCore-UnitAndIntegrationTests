@@ -52,10 +52,13 @@ namespace DataAccess.Implements.User
         }
         public List<UserListItem> Search(UserSearchModel sm, out int RecordCount)
         {
-            if (sm.PageSize == 0)
+            if (sm.PageSize <= 0)
             {
                 sm.PageSize = 10;
             }
+            if (sm.PageIndex < 0)
+                sm.PageIndex = 0;
+
             var q = from item in db.TblUsers select item;
             
             if (!string.IsNullOrEmpty(sm.Name))
@@ -75,8 +78,11 @@ namespace DataAccess.Implements.User
         
         public async Task<(List<UserListItem> Users, int RecordCount)> SearchAsync(UserSearchModel sm)
         {
-            if (sm.PageSize == 0)
+            if (sm.PageSize <= 0)
                 sm.PageSize = 10;
+
+            if (sm.PageIndex < 0)
+                sm.PageIndex = 0;
 
             var q = db.TblUsers
                      /* .Where(x => !x.IsDeleted) */

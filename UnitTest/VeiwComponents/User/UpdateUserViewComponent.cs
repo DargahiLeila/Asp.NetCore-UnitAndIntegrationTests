@@ -9,7 +9,7 @@ namespace UnitTest.VeiwComponents.User
     [ViewComponent(Name = "UpdateUser")]
     public class UpdateUserViewComponent:ViewComponent
     {
-        //private readonly IUserService _srv;
+       
         private readonly IUserQueryService _queryService;
         public UpdateUserViewComponent(IUserQueryService queryService)
         {

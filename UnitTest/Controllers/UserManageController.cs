@@ -3,6 +3,7 @@ using Application.Services.Commands.User;
 using Application.Services.Queries.User;
 using DomainModel.DTO.UserModel;
 using Microsoft.AspNetCore.Mvc;
+using UnitTest.DTOS;
 using UnitTest.ViewModel.User;
 
 namespace UnitTest.Controllers
@@ -67,7 +68,7 @@ namespace UnitTest.Controllers
 
                 var insertedUserId = await _commandService.AddUserAsync(model);
 
-                return Json(new
+                return Json(new OperationResult
                 {
                     success = true,
                     message = "کاربر با موفقیت ثبت شد",
@@ -76,11 +77,11 @@ namespace UnitTest.Controllers
             }
             catch (ArgumentException ex)
             {
-                return Json(new { success = false, message = ex.Message });
+                return Json(new OperationResult { success = false, message = ex.Message });
             }
             catch (Exception)
             {
-                return Json(new { success = false, message = "خطا در ثبت کاربر" });
+                return Json(new OperationResult { success = false, message = "خطا در ثبت کاربر" });
             }
         }
 
@@ -93,7 +94,7 @@ namespace UnitTest.Controllers
         {
             var deletedUserId = await _commandService.DeActiveUserAsync(id);
 
-            return Json(new
+            return Json(new OperationResult
             {
                 success = true,
                 message = "کاربر با موفقیت غیرفعال شد",
@@ -106,7 +107,7 @@ namespace UnitTest.Controllers
         public async Task<JsonResult> ActiveUser(int id)
         {
             var deletedUserId = await _commandService.ActiveUserAsync(id);
-            return Json(new { success = true, message = "کاربر با موفقیت فعال شد" /*,id = deletedUserId */});
+            return Json(new OperationResult { success = true, message = "کاربر با موفقیت فعال شد" /*,id = deletedUserId */});
 
         }
         [HttpGet]
@@ -130,7 +131,7 @@ namespace UnitTest.Controllers
 
                 var updatedUserId = await _commandService.UpdateUserAsync(model);
 
-                return Json(new
+                return Json(new OperationResult
                 {
                     success = true,
                     message = "کاربر با موفقیت ویرایش شد",
@@ -139,16 +140,12 @@ namespace UnitTest.Controllers
             }
             catch (ArgumentException ex)
             {
-                return Json(new { success = false, message = ex.Message });
+                return Json(new OperationResult { success = false, message = ex.Message });
             }
             catch (Exception)
             {
-                return Json(new { success = false, message = "خطا در ویرایش کاربر" });
+                return Json(new OperationResult { success = false, message = "خطا در ویرایش کاربر" });
             }
         }
-
-
-
-
     }
 }
