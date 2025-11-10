@@ -52,3 +52,54 @@ This project demonstrates a manual implementation of the **CQRS (Command Query R
    ```bash
    git clone https://github.com/DargahiLeila/Asp.NetCore-UnitAndIntegrationTests.git
   2.Open the solution file (.sln) in Visual Studio 2022 or later.
+
+  3.Make sure your SQL Server instance is running.
+
+  4.Create a SQL Server database manually named db_UnitTest.
+
+  5.Create the required table using the following SQL script:
+
+  CREATE TABLE [dbo].[Tbl_User] (
+    [Id] INT PRIMARY KEY IDENTITY(1,1),
+    [Name] NVARCHAR(50),
+    [IsDeleted] BIT NOT NULL
+);
+
+6.Update the connection string in appsettings.json:
+
+"UnitTestConnectionString": "Data Source=Your-ServerName;Initial Catalog=db_UnitTest;TrustServerCertificate=True;User Id=*;Password=*;"
+
+
+7.Run the project:
+Press Ctrl + F5 or click Start Without Debugging
+
+The browser will open and load the home page
+
+Run the tests:
+
+Open Test Explorer in Visual Studio
+
+Click Run All Tests
+
+📌 Notes
+Integration tests use EF Core InMemory for isolation
+
+Unit tests use Moq to simulate dependencies
+
+All tests are written with xUnit and FluentAssertions
+
+📂 Repository Structure
+
+UnitTest/
+├── Domain/              ← Domain models (currently not tested)
+├── DAL/                 ← Data Access Layer
+├── BLL/                 ← Business Logic Layer
+├── UI/                  ← User Interface
+├── MyProject.Tests/     ← Test project
+│   ├── ApplicationTests/    ← Tests for business/application services
+│   ├── DataAccessTests/     ← Tests for repositories and data access
+│   └── UITests/             ← Tests for UI layer (controllers, views, interactions)
+
+
+
+
